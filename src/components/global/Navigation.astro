@@ -1,50 +1,73 @@
 ---
+// ============================================
+// Navigation — Fixed top navigation bar
+// ============================================
+// Fixed at the top of the page with z-10.
+// 4-column grid: logo | subtitle | nav links | instagram
+// Nav links are hidden on mobile (hidden lg:flex).
+// To add/remove nav links, edit the "links" array below.
+// ============================================
+
 // Assets
 import Logo from "@/components/assets/Logo.astro";
-// Fundations
+
+// Fundation components
 import Text from "@/components/fundations/elements/Text.astro";
 import Button from "@/components/fundations/elements/Button.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 
+// --------------------------------------------
+// Navigation links — anchor links to page sections
+// href: section id to scroll to
+// text: display label
+// --------------------------------------------
 const links = [
   { href: "#work", text: "Work" },
-  { href: "#projects", text: "Projects" },
-  { href: "#education", text: "Education" },
-  { href: "#speaking", text: "Speaking" },
-  { href: "/system/overview", text: "Components" },
+  { href: "#services", text: "Services" },
+  { href: "#contact", text: "Contact" },
 ];
 ---
 
+<!-- Fixed navigation bar -->
 <nav class="bg-white dark:bg-base-950 fixed top-0 z-10 w-full">
   <Wrapper variant="standard" class="py-2">
     <div class="grid grid-cols-3 lg:grid-cols-4 items-start">
+
+      <!-- Col 1: Logo (links to top of page) -->
       <a href="/" class="-mt-1 flex">
         <Logo
           class="text-base-600 dark:text-base-300 text-xs tracking-tight font-base-900"
         />
       </a>
+
+      <!-- Col 2: Studio subtitle -->
       <Text
         tag="p"
         variant="textXS"
         class="text-base-600 dark:text-base-300 tracking-tight font-base"
       >
-        Helsinki, Finland<br />Creative Technologist
+        Creative Studio
       </Text>
+
+      <!-- Col 3: Nav links (desktop only) -->
       <div class="hidden lg:flex gap-8 text-sm items-center">
         {
           links.map((link) => (
             <a
               href={link.href}
-              class="text-base-600 dark:text-base-300  tracking-tight text-xs"
+              class="text-base-600 dark:text-base-300 tracking-tight text-xs"
             >
               {link.text}
             </a>
           ))
         }
       </div>
+
+      <!-- Col 4: Instagram link (right-aligned) -->
       <a
+        href="#_"
         class="text-base-600 dark:text-base-300 text-xs tracking-tight font-base ml-auto"
-        >Download
+        >Instagram
       </a>
     </div>
   </Wrapper>

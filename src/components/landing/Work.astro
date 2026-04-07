@@ -1,112 +1,407 @@
 ---
-// Assets
+// ============================================
+// Work Section — Portfolio showcase
+// ============================================
+// 4 work items: Portrait, Campaigns, Social Media, Shot on Film.
+// Portrait & Social Media use portrait layout (two vertical cells).
+// Campaigns & Shot on Film use standard horizontal layout.
+// Each cell supports images (Astro <Image>) or videos (<video>).
+// Media items: string = video URL (from public/), object = Astro image import.
+// ============================================
+
+// Assets — static image imports (required by Astro's Image component)
 import { Image } from "astro:assets";
-import one from "@/images/work/one.png";
-import two from "@/images/work/two.png";
-import three from "@/images/work/three.png";
-// Fundations
+
+// Portrait images (vertical orientation)
+import portrait1 from "@/images/work/portrait1.jpeg";
+import portrait2 from "@/images/work/portrait2.jpeg";
+import portrait3 from "@/images/work/portrait3.JPG";
+import portrait4 from "@/images/work/portrait4.JPG";
+
+// Campaign images (landscape)
+import campaign1 from "@/images/work/campaign1.jpg";
+import campaign2 from "@/images/work/campaign2.jpg";
+import campaign3 from "@/images/work/campaign3.jpg";
+
+// Social media photo
+import social4 from "@/images/work/social4.jpg";
+
+// Shot on Film placeholder images
+import projTwo from "@/images/projects/two.png";
+import projThree from "@/images/projects/three.png";
+
+// Fundation components
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-const featuredProjects = [
-  {
-    year: "2026",
-    title: "BRoom",
-    description:
-      "An electric vehicle platform built around modular hardware, real-time telemetry, and software-defined systems for efficiency, autonomy, and long-term scalability.",
-    category: "Electric Vehicle Platform",
-    image: one,
-    imageAlt:
-      "Electric car in motion against a minimal background, highlighting a digital cockpit and aerodynamic design.",
-  },
 
+// --------------------------------------------
+// Work items data
+// portrait: true  → two side-by-side vertical cells
+// portrait: false → one wide horizontal cell
+// Media items in arrays can be:
+//   - Astro image import (object) → renders <Image>
+//   - String URL (e.g. "/videos/x.mp4") → renders <video>
+// --------------------------------------------
+const works = [
   {
     year: "2026",
-    title: "Aurora Ride",
+    title: "Portrait",
     description:
-      "An electric mobility subscription focused on real-time diagnostics, predictive maintenance, and low-friction commuter flows.",
-    category: "Product Systems",
-    image: two,
-    imageAlt:
-      "Modern electric bicycle positioned against a minimal, light-colored wall.",
+      "Portrait photography capturing personality and presence through light, composition, and authentic expression.",
+    category: "Photography",
+    portrait: true,
+    portraitImages: [
+      [portrait2, portrait1],   // Left cell: portrait2 first, portrait1 second
+      [portrait3, portrait4],   // Right cell: portrait3 + portrait4
+    ],
   },
   {
     year: "2026",
-    title: "Northwind",
+    title: "Campaigns",
     description:
-      "An electric device platform built around efficient power management, embedded firmware, and production-ready industrial design for reliable, scalable deployment.",
-    category: "Hardware & Embedded Systems",
-    image: three,
-    imageAlt:
-      "Minimal electric device on a clean surface, showing precision controls, status indicators, and compact industrial design.",
+      "Visual campaigns for brands seeking bold, narrative-driven imagery across digital and print.",
+    category: "Brand Campaign",
+    portrait: false,
+    images: [campaign1, campaign2, campaign3],
+  },
+  {
+    year: "2025",
+    title: "Social Media",
+    description:
+      "Scroll-stopping content designed for engagement, built for platforms that move fast.",
+    category: "Digital",
+    portrait: true,
+    portraitImages: [
+      [social4],                           // Left cell: photo only
+      ["/videos/social2.mp4"],            // Right cell: video
+    ],
+  },
+  {
+    year: "2024",
+    title: "Shot on Film",
+    description:
+      "Analog photography with intentional grain, tone, and timeless aesthetic.",
+    category: "Photography",
+    portrait: false,
+    images: [projTwo, projThree],
   },
 ];
+
+// Helper: check if a media item is a video (string URL)
+function isVideo(item: any): boolean {
+  return typeof item === "string";
+}
 ---
 
+<!-- Work section container -->
 <section class="scroll-mt-32" id="work">
-  <Wrapper variant="standard" class="py-12 lg:py-24">
+  <Wrapper variant="standard" class="py-6 lg:py-12">
+
+    <!-- Section header: label + title -->
     <div class="grid grid-cols-1 lg:grid-cols-4 items-start">
       <div class="lg:col-start-2">
-        <Text tag="p" variant="textSM" class="text-base-600 dark:text-base-300"
-          >Featured Work
+        <Text tag="p" variant="textSM" class="text-base-600 dark:text-base-300">
+          Our Projects
           <br />
-          2026 - Now</Text
-        >
+          Portfolio
+        </Text>
       </div>
+      <!-- Title sized to match work item titles (displaySM) -->
       <Text
         tag="h2"
-        variant="textXL"
+        variant="displaySM"
         class="font-semibold leading-snug text-left tracking-tighter lg:col-span-2 text-base-900 dark:text-white"
       >
         Work
       </Text>
     </div>
 
-    <div class="flex flex-col lg:gap-12 mt-8">
+    <!-- Section subtitle -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 items-start mt-4">
+      <Text
+        tag="p"
+        variant="textSM"
+        class="text-base-600 dark:text-base-300 lg:col-start-2 lg:col-span-2"
+      >
+        A selection of our visual work.
+      </Text>
+    </div>
+
+    <!-- Work items list -->
+    <div class="flex flex-col lg:gap-6 mt-4">
       {
-        featuredProjects.map((project) => (
-          <article class="py-12 border-t border-base-200 dark:border-base-800">
+        works.map((work) => (
+          <article class="py-6 border-t border-base-200 dark:border-base-800">
+
+            {/* -- Metadata row: year | title | description | category -- */}
             <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 items-start">
               <Text
                 tag="p"
                 variant="textXS"
                 class="text-base-600 dark:text-base-300 uppercase"
               >
-                {project.year}
+                {work.year}
               </Text>
               <Text
                 tag="h3"
                 variant="displaySM"
-                class="text-base-900 dark:text-white leading-tight font-semibold "
+                class="text-base-900 dark:text-white leading-tight font-semibold"
               >
-                {project.title}
+                {work.title}
               </Text>
               <Text
                 tag="p"
                 variant="textSM"
                 class="text-base-600 dark:text-base-300"
               >
-                {project.description}
+                {work.description}
               </Text>
               <Text
                 tag="p"
                 variant="textXS"
                 class="text-base-600 dark:text-base-300 uppercase lg:ml-auto lg:col-start-4"
               >
-                {project.category}
+                {work.category}
               </Text>
             </div>
-            <Image
-              width={1420}
-              height={930}
-              src={project.image}
-              alt={project.imageAlt}
-              loading="lazy"
-              decoding="async"
-              class="size-full aspect-4/2 rounded-4xl mt-12 object-cover object-center"
-            />
+
+            {/* -- Image/video area: portrait (two cells) or landscape (one cell) -- */}
+            {work.portrait ? (
+              /* Portrait layout: two side-by-side vertical cells */
+              /* Mobile: stacked (grid-cols-1) | Tablet+: side by side (md:grid-cols-2) */
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                {work.portraitImages.map((cellItems, cellIndex) => (
+                  <div class="relative aspect-3/4 rounded-4xl overflow-hidden cursor-grab active:cursor-grabbing" data-carousel>
+                    {/* Carousel track */}
+                    <div class="carousel-track flex h-full" style="transition: transform 0.3s ease">
+                      {cellItems.map((item, i) =>
+                        isVideo(item) ? (
+                          /* Video item — auto-loops, muted, with hover controls */
+                          <div class="w-full flex-shrink-0 h-full relative" data-video-container>
+                            <video
+                              src={item}
+                              autoplay
+                              loop
+                              muted
+                              playsinline
+                              class="w-full h-full object-cover"
+                              draggable="false"
+                            />
+                            {/* Minimalist hover play/pause overlay */}
+                            <div class="video-overlay absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer" data-video-toggle>
+                              <div class="w-12 h-12 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center">
+                                <svg class="video-icon-pause w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                  <rect x="6" y="4" width="4" height="16" />
+                                  <rect x="14" y="4" width="4" height="16" />
+                                </svg>
+                                <svg class="video-icon-play w-5 h-5 text-white hidden" fill="currentColor" viewBox="0 0 24 24">
+                                  <polygon points="5,3 19,12 5,21" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          /* Image item */
+                          <Image
+                            src={item}
+                            alt={`${work.title} ${cellIndex + 1}-${i + 1}`}
+                            width={710}
+                            height={947}
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full flex-shrink-0 object-cover object-center"
+                          />
+                        )
+                      )}
+                    </div>
+                    {/* Dot indicators — only if more than 1 item */}
+                    {cellItems.length > 1 && (
+                      <div class="carousel-dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                        {cellItems.map((_, i) => (
+                          <span class={`w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? "bg-white" : "bg-white/40"}`} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Standard landscape layout: single wide carousel cell */
+              <div class="relative aspect-4/2 rounded-4xl overflow-hidden mt-6 cursor-grab active:cursor-grabbing" data-carousel>
+                {/* Carousel track */}
+                <div class="carousel-track flex h-full" style="transition: transform 0.3s ease">
+                  {work.images.map((item, i) =>
+                    isVideo(item) ? (
+                      <div class="w-full flex-shrink-0 h-full relative" data-video-container>
+                        <video
+                          src={item}
+                          autoplay
+                          loop
+                          muted
+                          playsinline
+                          class="w-full h-full object-cover"
+                          draggable="false"
+                        />
+                        <div class="video-overlay absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer" data-video-toggle>
+                          <div class="w-12 h-12 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center">
+                            <svg class="video-icon-pause w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                              <rect x="6" y="4" width="4" height="16" />
+                              <rect x="14" y="4" width="4" height="16" />
+                            </svg>
+                            <svg class="video-icon-play w-5 h-5 text-white hidden" fill="currentColor" viewBox="0 0 24 24">
+                              <polygon points="5,3 19,12 5,21" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <Image
+                        src={item}
+                        alt={`${work.title} ${i + 1}`}
+                        width={1420}
+                        height={930}
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full flex-shrink-0 object-cover object-center"
+                      />
+                    )
+                  )}
+                </div>
+                {/* Dot indicators — only if more than 1 item */}
+                {work.images.length > 1 && (
+                  <div class="carousel-dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                    {work.images.map((_, i) => (
+                      <span class={`w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? "bg-white" : "bg-white/40"}`} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </article>
         ))
       }
     </div>
   </Wrapper>
 </section>
+
+<!-- ============================================
+     Carousel JS — Instagram-style swipe/drag
+     + Video player hover play/pause controls
+     ============================================ -->
+<script is:inline>
+  // --- Carousel initialization ---
+  document.querySelectorAll("[data-carousel]").forEach(function (carousel) {
+    var track = carousel.querySelector(".carousel-track");
+    var dots = carousel.querySelectorAll(".carousel-dots span");
+    var total = dots.length;
+
+    if (total <= 1) return;
+
+    var current = 0;
+    var startX = 0;
+    var isDragging = false;
+    var carouselWidth = 0;
+
+    function goTo(index) {
+      current = Math.max(0, Math.min(index, total - 1));
+      track.style.transition = "transform 0.3s ease";
+      track.style.transform = "translateX(-" + current * 100 + "%)";
+      dots.forEach(function (dot, i) {
+        if (i === current) {
+          dot.className = "w-2 h-2 rounded-full transition-all duration-300 bg-white";
+        } else {
+          dot.className = "w-2 h-2 rounded-full transition-all duration-300 bg-white/40";
+        }
+      });
+    }
+
+    function updateDragPosition(clientX) {
+      if (!isDragging) return;
+      var diff = clientX - startX;
+      var dragPercent = (diff / carouselWidth) * 100;
+      var offset = -(current * 100) + dragPercent;
+      var min = -(total - 1) * 100;
+      if (offset > 20) offset = 20;
+      if (offset < min - 20) offset = min - 20;
+      track.style.transition = "none";
+      track.style.transform = "translateX(" + offset + "%)";
+    }
+
+    // Touch events (mobile)
+    carousel.addEventListener("touchstart", function (e) {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      carouselWidth = carousel.offsetWidth;
+      track.style.transition = "none";
+    }, { passive: true });
+
+    carousel.addEventListener("touchmove", function (e) {
+      if (!isDragging) return;
+      updateDragPosition(e.touches[0].clientX);
+    }, { passive: true });
+
+    carousel.addEventListener("touchend", function (e) {
+      if (!isDragging) return;
+      isDragging = false;
+      var diff = startX - e.changedTouches[0].clientX;
+      var threshold = carouselWidth * 0.15;
+      if (Math.abs(diff) > threshold) {
+        goTo(current + (diff > 0 ? 1 : -1));
+      } else {
+        goTo(current);
+      }
+    });
+
+    // Mouse events (desktop drag)
+    carousel.addEventListener("mousedown", function (e) {
+      startX = e.clientX;
+      isDragging = true;
+      carouselWidth = carousel.offsetWidth;
+      track.style.transition = "none";
+      e.preventDefault();
+    });
+
+    document.addEventListener("mousemove", function (e) {
+      if (!isDragging) return;
+      updateDragPosition(e.clientX);
+    });
+
+    document.addEventListener("mouseup", function (e) {
+      if (!isDragging) return;
+      isDragging = false;
+      var diff = startX - e.clientX;
+      var threshold = carouselWidth * 0.15;
+      if (Math.abs(diff) > threshold) {
+        goTo(current + (diff > 0 ? 1 : -1));
+      } else {
+        goTo(current);
+      }
+    });
+
+    // Prevent image dragging
+    carousel.querySelectorAll("img").forEach(function (img) {
+      img.setAttribute("draggable", "false");
+    });
+  });
+
+  // --- Video player: hover play/pause ---
+  document.querySelectorAll("[data-video-toggle]").forEach(function (overlay) {
+    overlay.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var container = overlay.closest("[data-video-container]");
+      var video = container.querySelector("video");
+      var pauseIcon = overlay.querySelector(".video-icon-pause");
+      var playIcon = overlay.querySelector(".video-icon-play");
+
+      if (video.paused) {
+        video.play();
+        pauseIcon.classList.remove("hidden");
+        playIcon.classList.add("hidden");
+      } else {
+        video.pause();
+        pauseIcon.classList.add("hidden");
+        playIcon.classList.remove("hidden");
+      }
+    });
+  });
+</script>

@@ -1,7 +1,19 @@
 ---
+// ============================================
+// BaseLayout — Main page wrapper
+// ============================================
+// Wraps every page with: global styles, head tags,
+// navigation, main content slot, footer, scroll
+// indicator sidebar, and smooth scroll JS.
+// ============================================
+
+// Global styles (Tailwind + theme tokens)
 import "@/styles/global.css";
+
+// Head component (SEO, meta, fonts, favicons)
 import BaseHead from "@/components/fundations/head/BaseHead.astro";
-// sections
+
+// Global sections
 import Footer from "@/components/global/Footer.astro";
 import Navigation from "@/components/global/Navigation.astro";
 ---
@@ -10,9 +22,100 @@ import Navigation from "@/components/global/Navigation.astro";
   <head>
     <BaseHead />
   </head>
-  <body class="bg-white dark:bg-base-950 flex flex-col h-svh">
+  <body class="bg-white dark:bg-base-950 flex flex-col min-h-svh">
+
+    <!-- Fixed top navigation -->
     <Navigation />
+
+    <!-- Page content (injected via <slot />) -->
     <main class="grow"><slot /></main>
+
+    <!-- Site footer -->
     <Footer />
+
+    <!-- ============================================
+         Sidebar scroll indicator
+         Fixed dots on the right side (desktop only).
+         Each dot links to a section and highlights
+         when that section is in view.
+         ============================================ -->
+    <nav id="scroll-indicator" class="fixed right-4 top-1/2 -translate-y-1/2 z-10 hidden lg:flex flex-col gap-3 items-center">
+      <a href="#visual" data-section="visual" class="scroll-dot block w-1.5 h-1.5 rounded-full bg-base-300 dark:bg-base-600 transition-all duration-300"></a>
+      <a href="#services" data-section="services" class="scroll-dot block w-1.5 h-1.5 rounded-full bg-base-300 dark:bg-base-600 transition-all duration-300"></a>
+      <a href="#work" data-section="work" class="scroll-dot block w-1.5 h-1.5 rounded-full bg-base-300 dark:bg-base-600 transition-all duration-300"></a>
+      <a href="#contact" data-section="contact" class="scroll-dot block w-1.5 h-1.5 rounded-full bg-base-300 dark:bg-base-600 transition-all duration-300"></a>
+    </nav>
+
+    <!-- ============================================
+         Global JavaScript (is:inline = no Astro bundling)
+         1. Custom smooth scroll animation (800ms cubic ease)
+         2. Scroll indicator dot highlighting via IntersectionObserver
+         ============================================ -->
+    <script is:inline>
+      // --- Smooth scroll animation ---
+      // Uses requestAnimationFrame to bypass system "reduce motion" settings.
+      // duration: scroll animation time in milliseconds
+      function smoothScrollTo(targetY, duration) {
+        var startY = window.scrollY;
+        var diff = targetY - startY;
+        var start = null;
+        function step(timestamp) {
+          if (!start) start = timestamp;
+          var progress = Math.min((timestamp - start) / duration, 1);
+          // Cubic ease-in-out for natural feel
+          var ease = progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+          window.scrollTo(0, startY + diff * ease);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Intercept all anchor link clicks and smooth-scroll to target
+      document.addEventListener("click", function (e) {
+        var anchor = e.target.closest('a[href^="#"]');
+        if (!anchor) return;
+        var href = anchor.getAttribute("href");
+        if (!href || href === "#_") return;
+        var target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          var y = target.getBoundingClientRect().top + window.scrollY;
+          smoothScrollTo(y, 800);
+        }
+      });
+
+      // --- Scroll indicator: highlight active section dot ---
+      // Uses IntersectionObserver to detect which section is in view.
+      // The active dot scales up and changes color.
+      var dots = document.querySelectorAll(".scroll-dot");
+      var sections = ["visual", "services", "work", "contact"];
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var id = entry.target.id;
+              dots.forEach(function (dot) {
+                var isActive = dot.getAttribute("data-section") === id;
+                if (isActive) {
+                  dot.classList.add("bg-base-900", "dark:bg-white", "scale-150");
+                  dot.classList.remove("bg-base-300", "dark:bg-base-600");
+                } else {
+                  dot.classList.remove("bg-base-900", "dark:bg-white", "scale-150");
+                  dot.classList.add("bg-base-300", "dark:bg-base-600");
+                }
+              });
+            }
+          });
+        },
+        { rootMargin: "-40% 0px -40% 0px" }
+      );
+      // Observe each section element
+      sections.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    </script>
   </body>
 </html>

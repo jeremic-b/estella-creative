@@ -24,7 +24,6 @@ pnpm-debug.log*
 # Git-specific files
 .git/
 .gitconfig
-.gitignore
 
 # Other editor/IDE settings
 .idea/

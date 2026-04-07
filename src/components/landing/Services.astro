@@ -1,0 +1,117 @@
+---
+// ============================================
+// Services Section — What Estella offers
+// ============================================
+// Displays a list of services in the 4-column grid pattern.
+// Each row: label | service title | sub-items | focus area
+// To add/remove a service, edit the "services" array below.
+// ============================================
+
+// Fundation components
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// --------------------------------------------
+// Services data
+// label: category tag (col 1, uppercase)
+// title: service name (col 2, bold heading)
+// items: comma-separated sub-services (col 3)
+// focus: focus area label (col 4, uppercase, right-aligned)
+// --------------------------------------------
+const services = [
+  {
+    label: "Creative",
+    title: "Photography",
+    items: "Product, Portraits, Campaigns, Editorial",
+    focus: "Visual Identity",
+  },
+  {
+    label: "Production",
+    title: "Videography",
+    items: "Brand Content, Campaigns, Reels & Short Form Content, Storytelling",
+    focus: "Motion & Narrative",
+  },
+  {
+    label: "Technical",
+    title: "Post-Production",
+    items: "Editing, Color Grading, VFX",
+    focus: "Finishing & Polish",
+  },
+  {
+    label: "Digital",
+    title: "Social Media",
+    items: "Account Management, Content Creation, Visual Identity, Strategy & Advertising",
+    focus: "Growth & Presence",
+  },
+  {
+    label: "Digital",
+    title: "Web",
+    items: "Design & Development",
+    focus: "Online Experience",
+  },
+];
+---
+
+<!-- Services section -->
+<section class="scroll-mt-32" id="services">
+  <Wrapper variant="standard" class="py-6 lg:py-12">
+
+    <!-- Section header: label + title -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 items-start">
+      <div class="lg:col-start-2">
+        <Text tag="p" variant="textSM" class="text-base-600 dark:text-base-300">
+          What We Do
+        </Text>
+      </div>
+      <!-- Title sized to match work item titles (displaySM) -->
+      <Text
+        tag="h2"
+        variant="displaySM"
+        class="font-semibold leading-snug tracking-tighter lg:col-span-2 text-base-900 dark:text-white"
+      >
+        Services
+      </Text>
+    </div>
+
+    <!-- Service items list -->
+    <div class="flex flex-col gap-4 mt-6">
+      {
+        services.map((service) => (
+          <article class="py-6 border-t border-base-200 dark:border-base-800">
+            {/* Row: label | title | sub-items | focus */}
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 items-start">
+              <Text
+                tag="p"
+                variant="textXS"
+                class="text-base-600 dark:text-base-300 uppercase"
+              >
+                {service.label}
+              </Text>
+              <Text
+                tag="h3"
+                variant="textLG"
+                class="text-base-900 dark:text-white leading-tight font-semibold"
+              >
+                {service.title}
+              </Text>
+              <Text
+                tag="p"
+                variant="textSM"
+                class="text-base-600 dark:text-base-300"
+              >
+                {service.items}
+              </Text>
+              <Text
+                tag="p"
+                variant="textXS"
+                class="text-base-600 dark:text-base-300 uppercase lg:ml-auto lg:col-start-4"
+              >
+                {service.focus}
+              </Text>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

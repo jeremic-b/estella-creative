@@ -1,0 +1,105 @@
+---
+// ============================================
+// Contact Section — How to reach Estella
+// ============================================
+// Displays contact methods in the same 4-column grid
+// pattern as Services. Each row is a contact channel.
+// To update contact details, edit the "contacts" array below.
+// ============================================
+
+// Fundation components
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// --------------------------------------------
+// Contact data
+// label: contact type tag (col 1, uppercase)
+// title: channel name (col 2, bold heading)
+// detail: actual contact info (col 3)
+// type: platform/purpose label (col 4, uppercase, right-aligned)
+// --------------------------------------------
+const contacts = [
+  {
+    label: "Direct",
+    title: "Email",
+    detail: "hello@estella.studio",
+    type: "General Inquiries",
+  },
+  {
+    label: "Follow",
+    title: "Social",
+    detail: "@estella.studio",
+    type: "Instagram",
+  },
+  {
+    label: "Connect",
+    title: "LinkedIn",
+    detail: "Estella Studio",
+    type: "Professional",
+  },
+];
+---
+
+<!-- Contact section -->
+<section class="scroll-mt-32" id="contact">
+  <Wrapper variant="standard" class="py-6 lg:py-12">
+
+    <!-- Section header: label + title -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 items-start">
+      <div class="lg:col-start-2">
+        <Text tag="p" variant="textSM" class="text-base-600 dark:text-base-300">
+          Get in Touch
+        </Text>
+      </div>
+      <!-- Title sized to match work item titles (displaySM) -->
+      <Text
+        tag="h2"
+        variant="displaySM"
+        class="font-semibold leading-snug tracking-tighter lg:col-span-2 text-base-900 dark:text-white"
+      >
+        Contact
+      </Text>
+    </div>
+
+    <!-- Contact items list -->
+    <div class="flex flex-col gap-4 mt-6">
+      {
+        contacts.map((contact) => (
+          <article class="py-6 border-t border-base-200 dark:border-base-800">
+            {/* Row: label | title | detail | type */}
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 items-start">
+              <Text
+                tag="p"
+                variant="textXS"
+                class="text-base-600 dark:text-base-300 uppercase"
+              >
+                {contact.label}
+              </Text>
+              <Text
+                tag="h3"
+                variant="textLG"
+                class="text-base-900 dark:text-white leading-tight font-semibold"
+              >
+                {contact.title}
+              </Text>
+              <Text
+                tag="p"
+                variant="textSM"
+                class="text-base-600 dark:text-base-300"
+              >
+                {contact.detail}
+              </Text>
+              <Text
+                tag="p"
+                variant="textXS"
+                class="text-base-600 dark:text-base-300 uppercase lg:ml-auto lg:col-start-4"
+              >
+                {contact.type}
+              </Text>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

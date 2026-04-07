@@ -1,7 +1,27 @@
 ---
+// ============================================
+// Logo — Estella brand mark + text
+// ============================================
+// Renders the Estella star logo image alongside "Estella" text.
+// Used in Navigation and Footer.
+// To change the logo image, replace src/images/estella-logo.png
+// To change the text, edit the span content below.
+// ============================================
+
+import { Image } from "astro:assets";
+import logo from "@/images/estella-logo.png";
+
 const { class: className = "", ...rest } = Astro.props;
 ---
 
-<span class={className} {...rest}>alessandro.p</span>
-
-
+<!-- Logo: star icon image + studio name -->
+<span class={`inline-flex items-center gap-1.5 ${className}`} {...rest}>
+  <Image
+    src={logo}
+    alt="Estella logo"
+    width={16}
+    height={16}
+    class="w-3 h-3 object-contain"
+  />
+  Estella
+</span>

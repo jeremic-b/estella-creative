@@ -1,0 +1,66 @@
+---
+// ============================================
+// Visual Section — Featured studio image
+// ============================================
+// A full-width editorial image with metadata row above it.
+// Uses the same 4-column grid pattern as Work items.
+// The image lets the visual breathe — minimal text.
+// ============================================
+
+// Assets
+import { Image } from "astro:assets";
+import visual from "@/images/work/one.png";
+
+// Fundation components
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<!-- Visual section -->
+<section id="visual">
+  <Wrapper variant="standard" class="py-6 lg:py-12">
+
+    <!-- Metadata row: year | title | description | focus -->
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 items-start pt-6 border-t border-base-200 dark:border-base-800">
+      <Text
+        tag="p"
+        variant="textXS"
+        class="text-base-600 dark:text-base-300 uppercase"
+      >
+        2026
+      </Text>
+      <Text
+        tag="h2"
+        variant="displaySM"
+        class="text-base-900 dark:text-white leading-tight font-semibold"
+      >
+        Studio Reel
+      </Text>
+      <Text
+        tag="p"
+        variant="textSM"
+        class="text-base-600 dark:text-base-300"
+      >
+        From brand campaigns to editorial work, every frame is crafted with intention and purpose.
+      </Text>
+      <Text
+        tag="p"
+        variant="textXS"
+        class="text-base-600 dark:text-base-300 uppercase lg:ml-auto lg:col-start-4"
+      >
+        Visual Identity
+      </Text>
+    </div>
+
+    <!-- Featured image -->
+    <Image
+      width={1420}
+      height={930}
+      src={visual}
+      alt="Estella studio visual"
+      loading="lazy"
+      decoding="async"
+      class="size-full aspect-4/2 rounded-4xl mt-6 object-cover object-center"
+    />
+  </Wrapper>
+</section>

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd.exe /c \"where npm\")",
+      "Bash(cmd.exe /c \"where node\")",
+      "Bash(npm install:*)",
+      "Bash(powershell.exe -Command \"\\(Get-Command npm\\).Source\")",
+      "Bash(powershell.exe -Command \"\\(Get-Command node\\).Source\")",
+      "Bash(npx astro:*)",
+      "Bash(cp \"C:/Users/B/Downloads/Ph/Kampanja.JPG\" \"C:/Users/B/Documents/Claude/primapersona_v7/src/images/work/campaign1.jpg\")",
+      "Bash(cp \"C:/Users/B/Downloads/Ph/Kampanja2.JPG\" \"C:/Users/B/Documents/Claude/primapersona_v7/src/images/work/campaign2.jpg\")",
+      "Bash(cp \"C:/Users/B/Downloads/Ph/Kampanja3.JPG\" \"C:/Users/B/Documents/Claude/primapersona_v7/src/images/work/campaign3.jpg\")",
+      "Bash(mkdir -p \"C:/Users/B/Documents/Claude/primapersona_v7/public/videos\")",
+      "Bash(cp \"C:/Users/B/Downloads/Ph/Social1.mp4\" \"C:/Users/B/Documents/Claude/primapersona_v7/public/videos/social1.mp4\")",
+      "Bash(cp \"C:/Users/B/Downloads/Ph/Social4.JPG\" \"C:/Users/B/Documents/Claude/primapersona_v7/src/images/work/social4.jpg\")"
+    ]
+  }
+}

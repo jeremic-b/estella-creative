@@ -1,18 +1,30 @@
 ---
-// Fundation
+// ============================================
+// Home Page — Single-page scroll portfolio
+// ============================================
+// Sections render in this order:
+// 1. Hero     — Studio name, tagline, CTA buttons
+// 2. Visual   — Featured studio image with metadata
+// 3. Services — List of offered services
+// 4. Work     — Portfolio pieces with swipeable carousels
+// 5. Contact  — Contact info (email, social, linkedin)
+// ============================================
+
+// Layout wrapper (includes nav, footer, scroll indicator)
 import BaseLayout from "@/layouts/BaseLayout.astro";
-// Sections
-import Intro from "@/components/landing/Intro.astro";
+
+// Landing page sections
+import Hero from "@/components/landing/Hero.astro";
+import Visual from "@/components/landing/Visual.astro";
+import Services from "@/components/landing/Services.astro";
 import Work from "@/components/landing/Work.astro";
-import Projects from "@/components/landing/Projects.astro";
-import Education from "@/components/landing/Education.astro";
-import Speaking from "@/components/landing/Speaking.astro";
+import Contact from "@/components/landing/Contact.astro";
 ---
 
 <BaseLayout>
-  <Intro />
+  <Hero />
+  <Visual />
+  <Services />
   <Work />
-  <Projects />
-  <Education />
-  <Speaking />
+  <Contact />
 </BaseLayout>

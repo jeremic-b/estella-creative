@@ -1,38 +1,31 @@
 ---
+// ============================================
+// Footer — Site footer with year and logo
+// ============================================
+// Displays the current year dynamically and the Estella logo.
+// The Logo component is shared with Navigation.
+// ============================================
+
 // Assets
 import Logo from "@/components/assets/Logo.astro";
-// Foundations
-import Text from "@/components/fundations/elements/Text.astro";
-import Button from "@/components/fundations/elements/Button.astro";
+
+// Fundation components
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-const links = [
-  { href: "#_", text: "LinkedIn" },
-  { href: "#_", text: "Arena" },
-  { href: "#_", text: "GitHub" },
-];
+
+// Current year for copyright display
 const year = new Date().getFullYear();
 ---
 
+<!-- Site footer -->
 <footer>
   <Wrapper variant="standard" class="py-2">
     <div class="grid grid-cols-2 lg:grid-cols-4 items-start">
+      <!-- Year + Logo -->
       <div
         class="flex items-center gap-2 text-base-600 dark:text-base-300 text-xs tracking-tight"
       >
         {year}
         <Logo />
-      </div>
-      <div class="flex flex-wrap gap-8 text-sm items-center">
-        {
-          links.map((link) => (
-            <a
-              href={link.href}
-              class="text-base-600 tracking-tight  text-xs hover:text-base-900 dark:text-white transition-colors"
-            >
-              {link.text}
-            </a>
-          ))
-        }
       </div>
     </div>
   </Wrapper>

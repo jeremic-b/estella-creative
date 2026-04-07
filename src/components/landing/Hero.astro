@@ -1,0 +1,56 @@
+---
+// ============================================
+// Hero Section — Studio introduction
+// ============================================
+// Displays the Estella logo image, studio name, tagline,
+// and two call-to-action buttons that smooth-scroll to
+// the Work and Contact sections.
+// ============================================
+
+import { Image } from "astro:assets";
+import logo from "@/images/estella-logo.png";
+
+// Fundation components
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<!-- Hero section — no id needed, it's the top of the page -->
+<section>
+  <Wrapper variant="standard" class="pb-4 pt-24 lg:pt-48">
+
+    <!-- Main heading with logo image -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 items-start gap-y-8">
+      <Text
+        tag="h1"
+        variant="displayLG"
+        class="font-semibold leading-snug text-left tracking-tighter lg:col-span-2 lg:col-start-3 text-base-900 dark:text-white"
+      >
+        <!-- Estella logo image — same as nav/footer/favicon -->
+        <Image
+          src={logo}
+          alt="Estella logo"
+          width={40}
+          height={40}
+          class="w-8 h-8 lg:w-10 lg:h-10 inline-block align-baseline object-contain"
+        />
+        Estella — Creative studio focused on visual storytelling.
+      </Text>
+    </div>
+
+    <!-- CTA buttons — aligned under the heading (col 3) -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 items-start mt-8">
+      <div class="lg:col-start-3 flex gap-4 flex-wrap">
+        <!-- Scrolls to Work section -->
+        <Button isLink variant="default" size="base" href="#work">
+          Explore
+        </Button>
+        <!-- Scrolls to Contact section -->
+        <Button isLink variant="default" size="base" href="#contact">
+          Work With Us
+        </Button>
+      </div>
+    </div>
+  </Wrapper>
+</section>
