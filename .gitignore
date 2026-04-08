@@ -18,8 +18,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# VS Code settings
+# Editor / AI tool settings
 .vscode/
+.claude/
 
 # Git-specific files
 .git/
