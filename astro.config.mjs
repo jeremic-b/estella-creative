@@ -7,7 +7,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   
-  site: 'https://jeremic-b.github.io',
-  base: '/estella-creative',
+  site: 'https://estella.rs',
   integrations: [sitemap()]
 });
