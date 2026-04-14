@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 @plugin "@tailwindcss/typography";
 @plugin "tailwind-scrollbar-hide";
