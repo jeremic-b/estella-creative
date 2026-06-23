@@ -7,6 +7,7 @@
   const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hasGSAP = typeof window.gsap !== "undefined";
   if (hasGSAP && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual"; // always open at the top
 
   document.getElementById("yr").textContent = new Date().getFullYear();
 
@@ -51,12 +52,8 @@
   }
 
   /* ---------- reels ---------- */
-  const reelVideos = Array.from(document.querySelectorAll(".hero__video, .reel video"));
+  const reelVideos = Array.from(document.querySelectorAll(".hero__video, .social__band video"));
   function playReels() { reelVideos.forEach((v) => v.play().catch(() => {})); }
-  reelVideos.forEach((v) => {
-    if (v.classList.contains("hero__video")) return; // background reel: no click-to-pause
-    v.addEventListener("click", () => { v.paused ? v.play() : v.pause(); });
-  });
   /* pause reels while off-screen — lighter + keeps playback smooth */
   if ("IntersectionObserver" in window) {
     const reelIO = new IntersectionObserver((entries) => {
@@ -80,7 +77,7 @@
       gsap.fromTo(".hero__media", { scale: 1.15, opacity: 0.3 }, { scale: 1, opacity: 1, duration: 1.9, ease: "power3.out" });
       gsap.fromTo(".hero__tag", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1, ease: "power2.out", delay: 0.9 });
 
-      [".studio__statement", ".work__intro h2", ".motion__intro h2", ".contact__big"].forEach((sel) => {
+      [".studio__statement", ".work__intro h2", ".contact__big"].forEach((sel) => {
         document.querySelectorAll(sel).forEach((group) => {
           ScrollTrigger.create({ trigger: group, start: "top 85%", once: true, onEnter: () => riseIn(group) });
         });

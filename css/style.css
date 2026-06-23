@@ -203,61 +203,88 @@ body.menu-open .mmenu { clip-path: inset(0 0 0 0); pointer-events: auto; }
 .hero__tag span { color: rgba(255,255,255,.5); }
 
 /* ============================================================
-   STUDIO
+   STUDIO — text statement
    ============================================================ */
-.studio { padding: clamp(4rem, 12vh, 9rem) var(--pad); border-top: 1px solid var(--line); }
+.studio { padding: clamp(5rem, 14vh, 9rem) var(--pad); }
+.studio__inner { max-width: 1100px; }
 .studio__statement {
-  font-size: clamp(1.7rem, 5vw, 4rem); font-weight: 400; line-height: 1.1;
-  letter-spacing: -.026em; margin: 1.6rem 0 2.6rem; max-width: 20ch;
+  font-size: clamp(2rem, 6vw, 4.6rem); font-weight: 400; line-height: 1.04;
+  letter-spacing: -.03em; margin: clamp(1.4rem, 3vw, 2.4rem) 0 clamp(2.2rem, 5vw, 3.4rem);
 }
 .studio__statement span { display: block; overflow: hidden; }
-.studio__meta { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-.studio__meta p { max-width: 42ch; color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.15rem); font-weight: 400; }
+.studio__meta { display: flex; align-items: center; gap: clamp(1.2rem, 4vw, 2.6rem); flex-wrap: wrap; }
+.studio__meta p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.18rem); }
 
 /* ============================================================
-   WORK
+   WORK — editorial masonry
    ============================================================ */
 .work { padding: clamp(3rem, 8vh, 6rem) var(--pad) clamp(4rem, 10vh, 8rem); }
-.work__intro { margin-bottom: clamp(2rem, 5vw, 4rem); }
+.work__intro { margin-bottom: clamp(2.4rem, 6vw, 4.5rem); }
 .work__intro h2 { font-size: clamp(2.6rem, 9vw, 7rem); font-weight: 400; line-height: .98; letter-spacing: -.032em; margin-top: 1rem; }
 
-.proj { margin-bottom: clamp(3rem, 7vw, 6rem); }
+.proj { margin-bottom: clamp(3.4rem, 8vw, 7rem); }
+.proj:last-child { margin-bottom: 0; }
 .proj__bar {
   display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 1rem;
-  padding-bottom: 1rem; margin-bottom: 1.4rem; border-bottom: 1px solid var(--line);
+  padding-bottom: .9rem; margin-bottom: clamp(1.1rem, 2.5vw, 1.8rem); border-bottom: 1px solid var(--line);
 }
-.proj__idx { font-size: .85rem; font-weight: 500; color: var(--red); }
-.proj__bar h3 { font-size: clamp(1.4rem, 4vw, 2.4rem); font-weight: 400; letter-spacing: -.015em; }
-.proj__yr { font-size: .85rem; font-weight: 400; color: var(--grey); }
-.proj__note { color: var(--muted); max-width: 46ch; margin-bottom: 1.4rem; font-size: 1.05rem; font-weight: 400; }
+.proj__idx { font-size: .85rem; font-weight: 600; color: var(--red); letter-spacing: .04em; }
+.proj__bar h3 { font-size: clamp(1.5rem, 4.5vw, 2.6rem); font-weight: 400; letter-spacing: -.018em; }
+.proj__yr { font-size: .82rem; font-weight: 400; color: var(--grey); }
 
-figure { overflow: hidden; position: relative; border-radius: 3px; }
-figure img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease); }
+figure { overflow: hidden; position: relative; border-radius: 3px; background: var(--light); }
+figure img, .social__band video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease); }
 figure:hover img { transform: scale(1.04); }
 figcaption {
-  position: absolute; left: 0; bottom: 0; right: 0; padding: 1rem 1.1rem .9rem;
-  font-size: .85rem; font-weight: 400; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.55));
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; padding: 1.5rem 1.1rem .85rem;
+  font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #fff;
+  background: linear-gradient(transparent, rgba(0,0,0,.6));
 }
 
+/* feature (wide) */
 .feat { aspect-ratio: 3/2; }
+
+/* portrait — large, cinematic 2×2 grid */
+.pgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(.6rem, 1.5vw, 1.2rem); }
+.pgrid figure { aspect-ratio: 4/5; }
+
+/* product — POSITIVE hero on top, NIZ Jewelry pair below */
+.prod { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.6rem, 1.5vw, 1.2rem); }
+.prod figure { aspect-ratio: 4/5; }
+.prod figure.prod__hero { grid-column: 1 / -1; order: -1; aspect-ratio: auto; height: clamp(460px, 66vh, 720px); }
+.prod__hero img { object-position: center 38%; }
+
+/* duos */
 .duo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.6rem, 1.5vw, 1.2rem); margin-top: clamp(.6rem, 1.5vw, 1.2rem); }
 .duo figure { aspect-ratio: 4/5; }
-.duo--offset { margin-top: 0; margin-bottom: clamp(.6rem, 1.5vw, 1.2rem); }
-.duo--editorial .tall, .duo--editorial figure:not(.tall) { aspect-ratio: 3/4; }
+.duo--wide figure { aspect-ratio: 3/2; }
+.duo--editorial figure { aspect-ratio: 3/4; }
 
-.film { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(.6rem, 1.5vw, 1.2rem); }
-.film figure { aspect-ratio: 3/4; }
-.film img { filter: grayscale(.1) contrast(1.03); }
+/* social — full-bleed reel band */
+.social__band {
+  width: 100vw; margin-left: calc(50% - 50vw); border-radius: 0;
+  height: clamp(420px, 78vh, 760px); background: #080808;
+}
+.social__scrim {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(0deg, rgba(8,8,8,.55) 0%, rgba(8,8,8,0) 30%),
+              linear-gradient(90deg, rgba(8,8,8,.45) 0%, rgba(8,8,8,0) 38%);
+}
+.social__band figcaption { left: var(--pad); right: auto; bottom: clamp(1.4rem, 3vw, 2.2rem); padding: 0; background: none; }
 
-/* ============================================================
-   MOTION — 2nd reel
-   ============================================================ */
-.motion { padding: clamp(4rem, 10vh, 8rem) var(--pad); border-top: 1px solid var(--line); }
-.motion__intro { margin-bottom: clamp(2rem, 5vw, 3.5rem); }
-.motion__intro h2 { font-size: clamp(2.2rem, 7vw, 5rem); font-weight: 400; line-height: 1.0; letter-spacing: -.03em; margin-top: 1rem; }
-.motion__grid { display: grid; grid-template-columns: minmax(0, 340px) 1fr; gap: clamp(1.6rem, 5vw, 4.5rem); align-items: center; }
-.motion__reel { width: 100%; max-width: 340px; }
-.motion__copy p { max-width: 34ch; color: var(--muted); font-size: clamp(1.05rem, 1.5vw, 1.3rem); margin-bottom: 1.8rem; }
+/* shot on film — clean masonry, wides recropped to 3:2, the upright frame to 2:3 */
+.film { columns: 2; column-gap: clamp(.6rem, 1.5vw, 1.2rem); }
+.film figure { break-inside: avoid; margin: 0 0 clamp(.6rem, 1.5vw, 1.2rem); aspect-ratio: 3/2; }
+.film figure.is-tall { aspect-ratio: 2/3; }
+.film figure img { filter: grayscale(.12) contrast(1.03); }
+
+/* image placeholders — auto-resolve when the real file is dropped into assets/img/ */
+.ph { background: repeating-linear-gradient(45deg, #ededed 0 12px, #e6e6e6 12px 24px); }
+.ph.is-missing::before {
+  content: attr(data-file); position: absolute; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem;
+  color: var(--grey); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+}
 
 /* ============================================================
    SERVICES
@@ -305,7 +332,7 @@ figcaption {
 /* ============================================================
    RESPONSIVE — phone first refinements
    ============================================================ */
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   .hero { padding-bottom: clamp(2.4rem, 8vh, 3.6rem); }
 }
 @media (max-width: 760px) {
@@ -313,18 +340,26 @@ figcaption {
   .burger { display: block; }
   .hero__tag { display: none; }
   .hero .eyebrow { font-size: .6rem; letter-spacing: .1em; }
-  .motion__grid { grid-template-columns: 1fr; gap: clamp(1.6rem, 6vw, 2.4rem); }
-  .motion__reel { max-width: 340px; }
-  .studio__meta { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
-  .duo, .duo--editorial { grid-template-columns: 1fr; }
-  .duo figure, .duo--editorial .tall, .duo--editorial figure:not(.tall) { aspect-ratio: 4/5; }
-  .film { grid-template-columns: 1fr 1fr; }
-  .svc li { grid-template-columns: 2.4rem 1fr; gap: .8rem; }
+  .studio { padding: clamp(3.5rem, 11vh, 6rem) var(--pad); }
+  .studio__statement { font-size: clamp(1.9rem, 8vw, 2.9rem); }
+
+  /* product hero → taller portrait crop on phone */
+  .prod figure.prod__hero { height: auto; aspect-ratio: 3/4; }
+
+  /* compact 2-up tall duos; wide images stack to keep their ratio */
+  .duo figure { aspect-ratio: 4/5; }
+  .duo--wide { grid-template-columns: 1fr; }
+  .duo--wide figure { aspect-ratio: 3/2; }
+  .duo--editorial figure { aspect-ratio: 3/4; }
+
+  .social__band { height: clamp(360px, 64vh, 560px); }
+  .film { columns: 2; }
+  .svc li { grid-template-columns: 2.4rem 1fr; gap: .7rem; }
   .svc p { grid-column: 2; }
   .ftr__row { flex-direction: column; align-items: flex-start; gap: .6rem; }
 }
-@media (max-width: 420px) {
-  .film { grid-template-columns: 1fr; }
+@media (max-width: 380px) {
+  .film { column-gap: .5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
